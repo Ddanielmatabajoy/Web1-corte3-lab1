@@ -21,3 +21,28 @@ CREATE TABLE IF NOT EXISTS enrollments_example (
     nota_final NUMERIC(3, 1) CHECK (nota_final BETWEEN 0 AND 5),
     UNIQUE (estudiante_id, curso_id)
 );
+
+-- Categorias (funcionalidad 1)
+    CREATE TABLE IF NOT EXISTS categorias (
+        id SERIAL PRIMARY KEY,
+        nombre VARCHAR(80) NOT NULL UNIQUE
+    );
+
+    -- Movies (funcionalidad 2)
+    CREATE TABLE IF NOT EXISTS movies (
+        id SERIAL PRIMARY KEY,
+        nombre VARCHAR(150) NOT NULL,
+        descripcion TEXT,
+        fecha DATE NOT NULL,
+        categoria_id INTEGER NOT NULL REFERENCES categorias(id)
+    );
+
+     INSERT INTO categorias (nombre) VALUES
+    ('Acción'),
+    ('Comedia'),
+    ('Drama');
+
+     INSERT INTO movies (nombre, descripcion, fecha, categoria_id) VALUES
+    ('Película 1', 'Descripción de la película 1', '2023-01-01', 1),
+    ('Película 2', 'Descripción de la película 2', '2023-02-01', 2),
+    ('Película 3', 'Descripción de la película 3', '2023-03-01', 3);
